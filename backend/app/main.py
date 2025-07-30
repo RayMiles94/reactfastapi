@@ -4,6 +4,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from .notes import notes
 
+from .db import init_db, get_session
+
 class LiveMessage(BaseModel):
     name : str
     message : str = Field(default=None, title="Message", max_length=300)
@@ -24,6 +26,10 @@ app.add_middleware(
 )
 app.include_router(notes.router)
 
+@app.on_event("startup")
+def on_startup():
+    init_db()
+
 @app.middleware("http")
 async def add_process_time_header(request: Request, call_next):
     start_time = time.perf_counter()
@@ -36,3 +42,4 @@ async def add_process_time_header(request: Request, call_next):
 @app.get("/")
 def main():
     return LiveMessage(name="Server", message="Live")
+
