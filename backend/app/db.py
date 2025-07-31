@@ -1,6 +1,7 @@
 from sqlmodel import SQLModel, create_engine, Session
 import os
 from .notes.models import *
+from .logs.models import *
 
 DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://noteuser:user45871A@localhost:5432/notes")
 engine = create_engine(DATABASE_URL, echo=True)

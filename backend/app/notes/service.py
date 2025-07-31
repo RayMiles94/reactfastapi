@@ -3,7 +3,7 @@ from sqlmodel import Session, select
 from .models import Note, NoteCreate
 
 def create_note(session: Session, node_data: NoteCreate) -> Note:
-    note = Note.from_orm(node_data)
+    note = Note.model_validate(node_data)
     session.add(note)
     session.commit()
     session.refresh(note)
