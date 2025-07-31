@@ -17,5 +17,5 @@ class NoteCreate(NoteBase):
 
 class NoteRead(NoteBase):
     id: int
-    createdate: datetime
-    updatedate: datetime
+    createdate: datetime = Field(default_factory=datetime.utcnow) 
+    updatedate: datetime = Field(default_factory=datetime.utcnow)

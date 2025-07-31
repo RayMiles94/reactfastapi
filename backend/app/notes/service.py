@@ -21,7 +21,7 @@ def update_note(session: Session, note_id: int, note_data: NoteCreate):
         return None
     note.name = note_data.name
     note.node = note_data.node
-    note.editdate = datetime.utcnow()
+    note.updatedate = datetime.utcnow()
     session.add(note)
     session.commit()
     session.refresh(note)
